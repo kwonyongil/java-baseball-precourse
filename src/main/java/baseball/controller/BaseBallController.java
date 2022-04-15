@@ -1,5 +1,8 @@
 package baseball.controller;
 
+import static baseball.model.Option.END;
+import static baseball.model.Option.RESTART;
+
 import baseball.model.BaseBallGameResult;
 import baseball.model.BaseBallMatch;
 import baseball.model.Computer;
@@ -18,8 +21,19 @@ public class BaseBallController {
             playGame(computer);
             BaseBallPrinter.printSuccessMent();
             option = BaseBallScanner.scanOption();
-            exit = computer.isEndGame(option);
+            exit = isEndGame(option);
         }
+    }
+
+    private boolean isEndGame(String option) {
+        if (RESTART.getOption().equals(option)) {
+            return false;
+        }
+        if (END.getOption().equals(option)) {
+            return true;
+        }
+        throw new IllegalArgumentException("잘못된 옵션 값");
+
     }
 
     private void playGame(Computer computer) {
